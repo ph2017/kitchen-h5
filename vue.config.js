@@ -1,7 +1,8 @@
 
 module.exports = {
   parallel: false,
-  outputDir: '../docs',
+  outputDir: './docs',
+  publicPath: process.env.NODE_ENV === 'production' ? 'https://ph2017.github.io/kitchen-h5/docs' : '/',
   css: {
     loaderOptions: {
       less: {

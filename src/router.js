@@ -9,27 +9,11 @@ const routes = [
     },
   },
   {
-    name: 'user',
-    path: '/user',
-    component: () => import('./view/user'),
-    meta: {
-      title: '会员中心',
-    },
-  },
-  {
-    name: 'cart',
-    path: '/cart',
-    component: () => import('./view/cart'),
-    meta: {
-      title: '购物车',
-    },
-  },
-  {
     name: 'goods',
     path: '/goods',
     component: () => import('./view/goods'),
     meta: {
-      title: '商品详情',
+      title: '定制我的智能家电',
     },
   },
 ];
