@@ -1,12 +1,12 @@
 <template>
-    <ul class="product-tab">
-        <li v-for="item in tabs" :key="item" :class="{ active: activeTab === item }">{{ item }}</li>        
+    <ul class="product-tab" @click="handleItemClick">
+        <li v-for="item in tabs" :key="item" :data-value="item" :class="{ active: activeTab === item }" class="ratio-item">{{ item }}</li>        
     </ul>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
-
+import { getParentNode } from '../../utils/tool'
 
 export default defineComponent({
     components: {
@@ -22,8 +22,19 @@ export default defineComponent({
             default: () => []
         }
     },
-    setup() {
-        
+    emits: ['change'],
+    setup(props, context) {
+        const handleItemClick = (event) => {
+            const node = getParentNode(event.target, 'ratio-item')
+            if (node) {
+                context.emit('change', {
+                    value: node.attributes['data-value'].value
+                })
+            }
+        }
+        return {
+            handleItemClick
+        }
     }
 })
 </script>

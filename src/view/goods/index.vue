@@ -8,17 +8,20 @@
       left-arrow
       @click-left="onNavBack"
     />
-    <van-swipe class="goods-swipe" :autoplay="0">
+    <!-- <van-swipe class="goods-swipe" :autoplay="0">
       <van-swipe-item v-for="item in thumb" :key="item">
         <img :src="item" />
       </van-swipe-item>
-    </van-swipe>
-    <product-tab v-show="isFirstStage" class="goods-tab" :tabs="tabs" :activeTab="activeTab"/>
+    </van-swipe> -->
+    <div class="goods-swipe">
+      <img :src="thumb[0]">
+    </div>
+    <product-tab v-show="isFirstStage" class="goods-tab" :tabs="tabs" :activeTab="activeTab" @change="handleTabChange"/>
     <div class="goods-content">
       
       <div v-show="isFirstStage">
         <div class="step-one" v-show="activeTab === tabs[0]">
-          <product-type-ratio class="goods-product-type" :options="productTypeOptions" @change="handleProductTypeChange"/>
+          <product-type-ratio class="goods-product-type" :options="productTypeOptions" :selectRatio="customData.model" @change="handleProductTypeChange"/>
         </div>
         <div class="step-two" v-show="activeTab === tabs[1]">
           <type-ratio class="goods-product-type" :options="gasOptions" labelText="选择气源类型" :selectRatio="customData.gasType" @change="handleGasChange"/>
@@ -65,14 +68,14 @@
           </span>
         </span>
       </div>
-      <van-action-bar-button type="warning" text="加入心愿单" @click="noProcess"/>
+      <van-action-bar-button type="warning" text="返回定制" @click="handleBackToSelect"/>
       <van-action-bar-button type="danger" text="我要预订" @click="noProcess" />
     </van-action-bar>
   </div>
 </template>
 
 <script>
-import { computed, defineComponent, reactive, ref } from 'vue'
+import { computed, defineComponent, reactive, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import ProductTab from '../../components/product-tab'
 import ProductTypeRatio from '../../components/productTypeRatio'
@@ -81,11 +84,17 @@ import PartList from '../../components/partList'
 import productCategroy from '../../productJson/productCategroy'
 import product from '../../productJson/product'
 import part from '../../productJson/part'
-import img1 from '../../../public/10211.webp'
-import img2 from '../../../public/10212.webp'
-// import part from '../../productJson/part'
+// import img1 from '../../../public/10211.webp'
+// import img2 from '../../../public/10212.webp'
+import box1 from '../../../public/box1.png'
+import box2 from '../../../public/box2.png'
+import box3 from '../../../public/box3.png'
+import box4 from '../../../public/box4.png'
+import box5 from '../../../public/box5.png'
 const TABS = ['款式', '功能', '外观']
 const priceKeys = ['knob', 'knobColor', 'door', 'trestle', 'board']
+const boxImgs = [box1, box2, box3, box4, box5]
+
 
 import {
   Swipe,
@@ -130,7 +139,8 @@ export default defineComponent({
       board: {}
     })
     const thumb = ref([
-      img1, img2
+      // img1, img2
+      box1
     ])
     const productTypeOptions = computed(() => {
       return Object.keys(productCategroyData.value).map(name => {
@@ -146,20 +156,29 @@ export default defineComponent({
         return result
       })
     })
+    watch(productTypeOptions, (newVal) => {
+      if (!customData.model) {
+        customData.model = newVal[0].name
+      }
+    }, {
+      immediate: true
+    })
     const totalPriceTemp = computed(() => {
+      const total = matchModel.value ?  matchModel.value.price : typeof customData.price === 'number' ? customData.price : 0
       return priceKeys.reduce((accu, curr) => {
-        if (customData[curr].type) {
+        if (customData[curr].type) {          
           accu += customData[curr].price
         }
         return accu = parseFloat(accu.toFixed(2))
-      }, typeof customData.price === 'number' ? customData.price : 0)
-       
+      }, total)
     })
     const totalPriceDisplay = computed(() => totalPriceTemp.value * 100)
     const handleProductTypeChange = ({value}) => {
-      console.log('value = ', value)
+      // console.log('value = ', value)
       customData.model = value.name
       customData.price = value.price
+      const matchIndex = productTypeOptions.value.findIndex(item => item.name === value.name)
+      thumb.value = [boxImgs[matchIndex]]
       // console.log('customData = ', customData.model)
     }
     const onNext = () => {
@@ -222,32 +241,92 @@ export default defineComponent({
       }
       return []
     })
+    watch(gasOptions, (newVal) => {
+      customData.gasType = newVal[0]
+    }, {
+      immediate: true
+    })
+
     const cleanOptions = computed(() => {
       if (customData.model) {
         return productCategroyData.value[customData.model].cleanTypes
       }
       return []
     })
+    watch(cleanOptions, (newVal) => {
+      customData.cleanType = newVal[0]
+    }, {
+      immediate: true
+    })
+
     const controlOptions = computed(() => {
       if (customData.model) {
         return productCategroyData.value[customData.model].controlTypes
       }
       return []
     })
+    watch(controlOptions, (newVal) => {
+      customData.controlType = newVal[0]
+    }, {
+      immediate: true
+    })
+
+    partData.value.knobs.sort((a, b) => a.price - b.price)
     const knobOptions = computed(() => {
       return partData.value.knobs.filter(item => item.detail === 'style')
     })
+    watch(knobOptions, (newVal) => {
+      if (!customData.knob.type) {
+        customData.knob = newVal[0]
+      }
+    }, {
+      immediate: true
+    })
+
     const knobColorOptions = computed(() => {
       return partData.value.knobs.filter(item => item.detail === 'color')
     })
+    watch(knobColorOptions, (newVal) => {
+      if (!customData.knobColor.type) {
+        customData.knobColor = newVal[0]
+      }
+    }, {
+      immediate: true
+    })
+
+    partData.value.doors.sort((a, b) => a.price - b.price)
     const doorOptions = computed(() => {
       return partData.value.doors
     })
+    watch(doorOptions, (newVal) => {
+      if (!customData.door.type) {
+        customData.door = newVal[0]
+      }
+    }, {
+      immediate: true
+    })
+
+    partData.value.trestles.sort((a, b) => a.price - b.price)
     const trestleOptions = computed(() => {
       return partData.value.trestles
     })
+    watch(trestleOptions, (newVal) => {
+      if (!customData.trestle.type) {
+        customData.trestle = newVal[0]
+      }
+    }, {
+      immediate: true
+    })
+
     const boardOptions = computed(() => {
       return partData.value.boards
+    })
+    watch(boardOptions, (newVal) => {
+      if (!customData.board.type) {
+        customData.board = newVal[0]
+      }
+    }, {
+      immediate: true
     })
 
     const handleGasChange = (param) => {
@@ -274,6 +353,36 @@ export default defineComponent({
     const handleBoardChange = (param) => {
       customData.board = boardOptions.value.find(item => item.type === param.data.value)
     }
+    const handleTabChange = (param) => {
+      if (activeTab.value) {
+        const activeIndex = tabs.value.indexOf(activeTab.value)
+        const nextIndex = tabs.value.indexOf(param.value)
+        if (activeIndex === 0) {
+          if (nextIndex > activeIndex) {
+            if (!customData.model) {
+              Toast('请先选择款式')
+              return
+            }
+          }
+        } else if (activeIndex === 1) {
+          if (nextIndex > activeIndex) {
+            if (!customData.gasType) {
+              Toast('请先选择气源类型')
+              return
+            }
+            if (!customData.cleanType) {
+              Toast('请先选择清洁类型')
+              return
+            }
+            if (!customData.controlType) {
+              Toast('请先选择机台类型')
+              return
+            }
+          }
+        }
+      }
+      activeTab.value = param.value
+    }
     const isFirstStage = computed(() => {
       return !!activeTab.value
     })
@@ -288,7 +397,7 @@ export default defineComponent({
         prices.push({
           name: '型号',
           value: matchModel.value.type,
-          price: matchModel.value.price
+          price: `¥${matchModel.value.price}`
         })
       }
       if (customData.knob) {
@@ -324,6 +433,9 @@ export default defineComponent({
     const noProcess = () => {
       Toast('暂无处理')
     }
+    const handleBackToSelect = () => {
+      activeTab.value = tabs.value[0]
+    }
 
     return {
       activeTab,
@@ -352,10 +464,12 @@ export default defineComponent({
       handleDoorChange,
       handleTrestleChange,
       handleBoardChange,
+      handleTabChange,
       isFirstStage,
       matchModel,
       priceDetails,
-      noProcess
+      noProcess,
+      handleBackToSelect
     }
   },
 })
@@ -372,11 +486,13 @@ export default defineComponent({
     border: none;
   }
   &-swipe {
-    // height: 230px;
+    display: flex;
+    justify-content: center;
     padding-top: 46px;
     img {
-      height: 100%;
-      width: 100%;
+      height: 230px;
+      // height: 100%;
+      // width: 100%;
       display: block;
     }
   }
@@ -404,10 +520,11 @@ export default defineComponent({
       margin-top: 5px;
       .code {
         font-weight: bold;
-        padding: 0 20px 0 15px;
+        padding: 0 15px 0 15px;
       }
       .model-name {
         text-align: center;
+        padding-right: 8px;
       }
     }
     .price-detail {

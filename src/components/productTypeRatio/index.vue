@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import { getParentNode } from '../../utils/tool'
 
 export default defineComponent({
@@ -24,22 +24,23 @@ export default defineComponent({
         options: {
             type: Array,
             required: true
+        },
+        selectRatio: {
+            value: String,
+            required: true
         }
     },
     emits: ['change'],
     setup(props, context) {
-        const selectRatio = ref('')
         const handleItemClick = (event) => {
             const node = getParentNode(event.target, 'ratio-item')
             if (node) {
-                selectRatio.value = node.attributes['data-value'].value
                 context.emit('change', {
-                    value: props.options.find(item => item.name === selectRatio.value)
+                    value: props.options.find(item => item.name === node.attributes['data-value'].value)
                 })
             }
         }
         return {
-            selectRatio,
             handleItemClick
         }
     }
