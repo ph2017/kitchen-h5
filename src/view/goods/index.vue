@@ -81,6 +81,8 @@ import PartList from '../../components/partList'
 import productCategroy from '../../productJson/productCategroy'
 import product from '../../productJson/product'
 import part from '../../productJson/part'
+import img1 from '../../../public/10211.webp'
+import img2 from '../../../public/10212.webp'
 // import part from '../../productJson/part'
 const TABS = ['款式', '功能', '外观']
 const priceKeys = ['knob', 'knobColor', 'door', 'trestle', 'board']
@@ -128,8 +130,7 @@ export default defineComponent({
       board: {}
     })
     const thumb = ref([
-      'https://img.yzcdn.cn/public_files/2017/10/24/e5a5a02309a41f9f5def56684808d9ae.jpeg',
-      'https://img.yzcdn.cn/public_files/2017/10/24/1791ba14088f9c2be8c610d0a6cc0f93.jpeg',
+      img1, img2
     ])
     const productTypeOptions = computed(() => {
       return Object.keys(productCategroyData.value).map(name => {
@@ -371,7 +372,7 @@ export default defineComponent({
     border: none;
   }
   &-swipe {
-    height: 230px;
+    // height: 230px;
     padding-top: 46px;
     img {
       height: 100%;
