@@ -1,0 +1,68 @@
+{
+    "knobs": [
+        {
+            "detail": "style",
+            "type": "TY10款",
+            "price": 100
+        },
+        {
+            "detail": "color",
+            "type": "黑色",
+            "price": 0
+        },
+        {
+            "detail": "style",
+            "type": "D11款",
+            "price": 50
+        },
+        {
+            "detail": "color",
+            "type": "银色",
+            "price": 300
+        },
+        {
+            "detail": "style",
+            "type": "跑道圆",
+            "price": 50
+        },
+        {
+            "detail": "color",
+            "type": "星耀灰",
+            "price": 500
+        }
+    ],
+    "doors": [
+        {
+            "type": "D11",
+            "price": 200
+        },
+        {
+            "type": "D15",
+            "price": 400
+        },
+        {
+            "type": "YP002",
+            "price": 100
+        }
+    ],
+    "trestles": [
+        {
+            "type": "方形锅架",
+            "price": 100
+        },
+        {
+            "type": "圆形锅架",
+            "price": 0
+        }
+    ],
+    "boards": [
+        {
+            "type": "喷漆",
+            "price": 200
+        },
+        {
+            "type": "玻璃",
+            "price": 500
+        }
+    ]
+}
