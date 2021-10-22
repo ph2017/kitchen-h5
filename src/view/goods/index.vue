@@ -261,7 +261,7 @@ export default defineComponent({
 
     const controlOptions = computed(() => {
       if (customData.model) {
-        return productCategroyData.value[customData.model].controlTypes
+        return productCategroyData.value[customData.model].controlTypes[customData.cleanType]
       }
       return []
     })
@@ -388,7 +388,7 @@ export default defineComponent({
     })
     const matchModel = computed(() => {
       const match = productData.value.find(item => item.model === customData.model && item.cleanType === customData.cleanType && item.gasType === customData.gasType && item.controlType === customData.controlType)
-      console.log('match = ', match)
+      // console.log('match = ', match)
       return match
     })
     const priceDetails = computed(() => {
