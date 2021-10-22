@@ -16,6 +16,14 @@ const routes = [
       title: '定制我的智能家电',
     },
   },
+  {
+    name: 'result',
+    path: '/result',
+    component: () => import('./view/result'),
+    meta: {
+      title: '预定成功',
+    },
+  },
 ];
 
 const router = createRouter({

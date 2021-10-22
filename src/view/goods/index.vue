@@ -69,7 +69,7 @@
         </span>
       </div>
       <van-action-bar-button type="warning" text="返回定制" @click="handleBackToSelect"/>
-      <van-action-bar-button type="danger" text="我要预订" @click="noProcess" />
+      <van-action-bar-button type="danger" text="我要预订" @click="handleSubmit" />
     </van-action-bar>
   </div>
 </template>
@@ -436,6 +436,11 @@ export default defineComponent({
     const handleBackToSelect = () => {
       activeTab.value = tabs.value[0]
     }
+    const handleSubmit = () => {
+      router.push({
+        path: '/result'
+      })
+    }
 
     return {
       activeTab,
@@ -469,7 +474,8 @@ export default defineComponent({
       matchModel,
       priceDetails,
       noProcess,
-      handleBackToSelect
+      handleBackToSelect,
+      handleSubmit
     }
   },
 })
