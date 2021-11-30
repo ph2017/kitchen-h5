@@ -14,7 +14,7 @@ module.exports = {
             // 'border-color': 'blue',
             // '@primary-color:': '#000'
             // 或者可以通过 less 文件覆盖（文件路径为绝对路径）
-            hack: `true; @import "./src/styles/theme.less";`,
+            hack: `true; @import "./src/styles/theme.less";`
           }
         }
       }

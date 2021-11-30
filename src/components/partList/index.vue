@@ -8,7 +8,9 @@
                     <span class="value">{{ item.value }}</span>
                 </div>
                 <div class="right">
-                    <span class="price">{{ item.price }}</span>
+                    <span class="price">
+                        <span v-show="index > 0">+</span>¥{{ toThousands(item.price) }}
+                    </span>
                 </div>
             </li>
         </ul>
@@ -47,9 +49,20 @@ export default defineComponent({
                 })
             }
         }
+        const toThousands = (num) => {
+            let result = [], counter = 0;
+            num = (num || 0).toString().split('');
+            for (let i = num.length - 1; i >= 0; i--) {
+                counter++;
+                result.unshift(num[i]);
+                if (!(counter % 3) && i != 0 && num.length > 3) { result.unshift(','); }
+            }
+            return result.join('');
+        }
         return {
             selectRatio,
-            handleItemClick
+            handleItemClick,
+            toThousands
         }
     }
 })
@@ -59,9 +72,16 @@ export default defineComponent({
     width: 100%;
     box-sizing: border-box;
     .title {
-        font-weight: bold;
+        font-family: PingFangSC-Semibold;
+        font-size: 20px;
+        color: #33425E;
+        font-weight: 600;
     }
     .list-ul {
+        padding-top: 21px;
+        padding-bottom: 11px;
+        font-family: MicrosoftYaHei;
+        font-size: 14px;
         .list-li {
             display: flex;
             justify-content: space-between;
@@ -74,15 +94,25 @@ export default defineComponent({
                 flex-direction: column;
                 justify-content: flex-start;
                 .name {
-                    color: #777;
-                    font-size: 14px;
+                    color: #6A6F79;
+                    font-weight: 400;
                 }
                 .value {
-                    font-size: 15px;
+                    margin-top: 8px;
+                    font-family: PingFangSC-Regular;
+                    font-size: 14px;
+                    color: #33425E;
+                    font-weight: 400;
                 }
             }
             .right {
-
+                .price {
+                    font-family: PingFangSC-Regular;
+                    font-size: 14px;
+                    color: #33425E;
+                    text-align: right;
+                    font-weight: 400;
+                }
             }
         }
     }

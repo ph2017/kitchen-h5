@@ -2,13 +2,14 @@
 <div class="product-param-ratio">
     <div><span class="label">{{ labelText }}</span></div>
     <ul class="ratio" @click="handleItemClick">
-        <li v-for="(item, index) in options" :key="index" :data-value="typeof item === 'string' ? item : item.type" :class="{ active: selectRatio === item || selectRatio === item.type }" class="ratio-item" :style="{width: itemWidth}">
+        
+        <li v-for="(item, index) in options" :key="index" :data-value="typeof item === 'string' ? item : item.type" :class="{ active: selectRatio === item || selectRatio === item.type, 'column-two': options.length === 2 }" class="ratio-item" :style="{width: itemWidth}">
             <span v-if="typeof item === 'string'">
                 {{ item }}
             </span>
             <div v-else class="part-box">
                 <span>{{ item.type }}</span>
-                <span>+¥{{ item.price }}</span>
+                <span class="price">+¥{{ item.price }}</span>
             </div>
         </li>
     </ul>
@@ -64,34 +65,52 @@ export default defineComponent({
 <style lang="less" scoped>
 .product-param-ratio {
     .label {
-        font-size: 13px;
+        font-family: PingFangSC-Semibold;
+        font-size: 20px;
+        color: #33425E;
+        font-weight: 600;
+        line-height: 1.4;
     }
     .ratio {
         display: flex;
         justify-content: flex-start;
         flex-wrap: wrap;
-        padding: 8px 0;
+        padding: 20px 0;
         font-size: 15px;
         &-item {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 8px 3px;
+            padding: 24px 0;
             text-align: center;
-            border: 2px solid rgb(5, 5, 5);
-            margin: 8px 8px 0 0;
+            border: 1px solid #E5E7EE;
+            border-radius: 8px;
+            font-family: PingFangSC-Semibold;
+            font-size: 18px;
+            color: #33425E;
+            font-weight: 600;
+            margin: 0 8px 0 0;
             box-sizing: border-box;
+            height: 70px;
             .part-box {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
+                .price {
+                    margin-top: 2px;
+                    font-family: PingFangSC-Regular;
+                    font-size: 14px;
+                    color: #6A6F79;
+                    font-weight: 400;
+                }
             }
         }
         &-item:nth-of-type(3n+0){margin-right: 0;}
     }
+    .column-two.ratio-item:nth-of-type(2n+0){margin-right: 0;}
     .active {
-        border-color: rgb(83, 117, 221);
+        border: 3px solid #216DFF;
     }
 }
 </style>

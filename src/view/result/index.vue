@@ -1,28 +1,30 @@
 <template>
-    <van-nav-bar
+    <!-- <van-nav-bar
       title="预定成功"
       class="nav-bar"
       left-text=""
       right-text=""
       left-arrow
       @click-left="onNavBack"
-    />
+    /> -->
     <div class="result-tips-box">
         <div class="result-tips-box-result">
             <div class="logo">
-                <i class="iconfont iconduigou"></i>
+                <!-- <i class="iconfont iconduigou"></i> -->
+                <img :src="successPng" alt="">
             </div>
             <div class="result-tips-box-msg">
                 预定成功
             </div>
         </div>
-        <van-button type="primary" class="complete-btn" @click="onNavBack">再来一单</van-button>
+        <van-button type="primary" round class="complete-btn" @click="onNavBack">再来一单</van-button>
     </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
+import successPng from '@/assets/success.png'
 import {
   NavBar,
   Button
@@ -42,7 +44,8 @@ export default defineComponent({
             })
         }
         return {
-            onNavBack
+            onNavBack,
+            successPng
         }
     },
 })
@@ -50,40 +53,33 @@ export default defineComponent({
 
 <style lang="less">
 .result-tips-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    height: 93vh;
+    position: relative;
+    height: 100vh;
 
     &-result {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        text-align: center;
+        transform: translate(-50%,-50%);
         .logo {
-            height: 94px;
-            width: 94px;
-            margin-top: 17vh;
-            background-color: #7EDB42;
-            border-radius: 50%;
-            text-align: center;
-            .iconfont {
-                color: #fff;
-                font-size: 41px;
-                line-height: 2.2;
-            }
+            
         }
     }
     &-msg {
-        margin-top: 13px;
+        margin-top: 10px;
+        font-family: PingFangSC-Semibold;
         font-size: 20px;
-        color: #333;
-        letter-spacing: 0.49px;
-        text-align: center;
+        color: #33425E;
+        font-weight: 600;
     }
 
     .complete-btn {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translate(-50%, 0);
         width: 335px;
-        margin-bottom: 20px;
-        // background-color: @mideaPurple;
-        // border-color: @mideaPurple;
     }
 }
 </style>

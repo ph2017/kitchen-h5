@@ -1,13 +1,13 @@
 <template>
   <div class="goods">
-    <van-nav-bar
+    <!-- <van-nav-bar
       title="定制我的智能家电"
       class="nav-bar"
       left-text=""
       right-text=""
       left-arrow
       @click-left="onNavBack"
-    />
+    /> -->
     <!-- <van-swipe class="goods-swipe" :autoplay="0">
       <van-swipe-item v-for="item in thumb" :key="item">
         <img :src="item" />
@@ -30,7 +30,7 @@
         </div>
         <div class="step-three" v-show="activeTab === tabs[2]">
           <type-ratio class="goods-product-type" :options="knobOptions" labelText="选择旋钮造型" :selectRatio="customData.knob.type" @change="handleKnobChange"/>
-          <type-ratio class="goods-product-type pt15" :options="knobColorOptions" labelText="选择旋钮颜色" :selectRatio="customData.knobColor.type" @change="handleKnobColorChange"/>
+          <color-type-ratio class="goods-product-type pt15" :options="knobColorOptions" labelText="选择旋钮颜色" :selectRatio="customData.knobColor.type" @change="handleKnobColorChange"/>
           <type-ratio class="goods-product-type pt15" :options="doorOptions" labelText="选择门体" :selectRatio="customData.door.type" @change="handleDoorChange"/>
           <type-ratio class="goods-product-type pt15" :options="trestleOptions" labelText="选择锅架" :selectRatio="customData.trestle.type" @change="handleTrestleChange"/>
           <type-ratio class="goods-product-type pt15" :options="boardOptions" labelText="选择前装饰板" :selectRatio="customData.board.type" @change="handleBoardChange"/>
@@ -53,20 +53,25 @@
     </div>
     <van-submit-bar
       v-show="isFirstStage"
-      :price="totalPriceDisplay"
       :disabled="false"
       button-text="下一步"
       @submit="onNext"
     />
+    
+    <div class="bottom-total-price">
+      <span class="money">¥</span>
+      {{toThousands(totalPriceTemp)}}
+    </div>
+
     <van-action-bar v-show="!isFirstStage">
       <div class="van-submit-bar__text">
-        <span>合计：</span>
+        <!-- <span>合计：</span>
         <span class="van-submit-bar__price">
           ¥
           <span class="van-submit-bar__price-integer">
             {{totalPriceTemp}}
           </span>
-        </span>
+        </span> -->
       </div>
       <van-action-bar-button type="warning" text="返回定制" @click="handleBackToSelect"/>
       <van-action-bar-button type="danger" text="我要预订" @click="handleSubmit" />
@@ -81,6 +86,7 @@ import ProductTab from '../../components/product-tab'
 import ProductTypeRatio from '../../components/productTypeRatio'
 import TypeRatio from '../../components/typeRatio'
 import PartList from '../../components/partList'
+import ColorTypeRatio from '../../components/colorTypeRatio'
 import productCategroy from '../../productJson/productCategroy'
 import product from '../../productJson/product'
 import part from '../../productJson/part'
@@ -117,7 +123,8 @@ export default defineComponent({
     ProductTab,
     ProductTypeRatio,
     TypeRatio,
-    PartList
+    PartList,
+    ColorTypeRatio
   },
 
   setup() {
@@ -147,6 +154,7 @@ export default defineComponent({
         const matchProduct = productData.value.filter(item => item.model === name).sort((a, b) => a.price - b.price)
         const result = {
           name,
+          desc: productCategroyData.value[name].desc
         }
         if (matchProduct.length > 0) {
           result.price = matchProduct[0].price
@@ -397,35 +405,35 @@ export default defineComponent({
         prices.push({
           name: '型号',
           value: matchModel.value.type,
-          price: `¥${matchModel.value.price}`
+          price: `${matchModel.value.price}`
         })
       }
       if (customData.knob) {
         prices.push({
           name: '旋钮造型&颜色',
           value: `${customData.knob.type}&${customData.knobColor.type}`,
-          price: `+¥${customData.knob.price + customData.knobColor.price}`
+          price: `${customData.knob.price + customData.knobColor.price}`
         })
       }
       if (customData.door) {
         prices.push({
           name: '门体',
           value: customData.door.type,
-          price: `+¥${customData.door.price}`
+          price: `${customData.door.price}`
         })
       }
       if (customData.trestle) {
         prices.push({
           name: '锅支架',
           value: customData.trestle.type,
-          price: `+¥${customData.trestle.price}`
+          price: `${customData.trestle.price}`
         })
       }
       if (customData.board) {
         prices.push({
           name: '前装饰板',
           value: customData.board.type,
-          price: `+¥${customData.board.price}`
+          price: `${customData.board.price}`
         })
       }
       return prices
@@ -441,7 +449,16 @@ export default defineComponent({
         path: '/result'
       })
     }
-
+    const toThousands = (num) => {
+        let result = [ ], counter = 0;
+        num = (num || 0).toString().split('');
+        for (let i = num.length - 1; i >= 0; i--) {
+            counter++;
+            result.unshift(num[i]);
+            if (!(counter % 3) && i != 0) { result.unshift(','); }
+        }
+        return result.join('');
+    }
     return {
       activeTab,
       tabs,
@@ -475,7 +492,8 @@ export default defineComponent({
       priceDetails,
       noProcess,
       handleBackToSelect,
-      handleSubmit
+      handleSubmit,
+      toThousands
     }
   },
 })
@@ -494,7 +512,7 @@ export default defineComponent({
   &-swipe {
     display: flex;
     justify-content: center;
-    padding-top: 46px;
+    // padding-top: 46px;
     img {
       height: 230px;
       // height: 100%;
@@ -504,15 +522,15 @@ export default defineComponent({
   }
 
   &-tab {
-    padding: 10px;
+    
   }
   &-content {
     background: #fff;
     // height: calc(~'100vh - 380px');
     // overflow: auto;
-    padding: 0 5px;
+    padding: 20px;
     &-product-type {
-      padding: 10px;
+      // padding: 10px;
     }
     .pt15 {
       padding-top: 15px;
@@ -520,17 +538,19 @@ export default defineComponent({
     .match-model {
       display: flex;
       align-items: center;
-      padding: 10px 0;
-      border-top: 1px solid rgba(237,237,237);
-      border-bottom: 1px solid rgba(237,237,237);
-      margin-top: 5px;
+      padding: 9px 20px 7px 23px;
+      font-family: MicrosoftYaHei;
       .code {
-        font-weight: bold;
-        padding: 0 15px 0 15px;
+        font-size: 20px;
+        color: #33425E;
+        text-align: center;
+        font-weight: 400;
+        padding-right: 22px;
       }
       .model-name {
-        text-align: center;
-        padding-right: 8px;
+        font-size: 14px;
+        color: #6A6F79;
+        font-weight: 400;
       }
     }
     .price-detail {
@@ -539,6 +559,7 @@ export default defineComponent({
     }
   }
   .van-submit-bar__bar {
+    height: 60px;
     border-top: 1px solid rgba(237,237,237);
     .van-submit-bar__text {
       text-align: left;
@@ -548,6 +569,7 @@ export default defineComponent({
     }
   }
   .van-action-bar {
+    height: 60px;
     border-top: 1px solid rgba(237,237,237);
     .van-submit-bar__text {
       flex: 2;
@@ -559,8 +581,23 @@ export default defineComponent({
     }
     .van-action-bar-button--warning {
       background: #fff;
-      color: #000;
-      border: 1px solid #000;
+      color: #6A6F79;
+      border: 1px solid #216DFF;
+    }
+  }
+  .bottom-total-price {
+    position: fixed;
+    bottom: 15px;
+    left: 20px;
+    z-index: 100;
+    font-family: Avenir-Heavy;
+    font-size: 20px;
+    color: #33425E;
+    line-height: 28px;
+    font-weight: 800;
+    text-align: center;
+    .money {
+      width: 20px;
     }
   }
 }

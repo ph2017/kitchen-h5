@@ -3,8 +3,8 @@
         <ul class="ratio" @click="handleItemClick">
             <li v-for="item in options" :key="item" :data-value="item.name" :class="{ active: selectRatio === item.name }" class="ratio-item">
                 <span class="name">{{ item.name }}</span>
-                <span class="desc">此处加入款式内容介绍</span>
-                <span class="price">¥{{ item.price }}起</span>
+                <span class="desc">{{ item.desc }}</span>
+                <span class="price">¥{{ toThousands(item.price) }}起</span>
             </li>
         </ul>
         
@@ -40,8 +40,19 @@ export default defineComponent({
                 })
             }
         }
+        const toThousands = (num) => {
+            let result = [ ], counter = 0;
+            num = (num || 0).toString().split('');
+            for (let i = num.length - 1; i >= 0; i--) {
+                counter++;
+                result.unshift(num[i]);
+                if (!(counter % 3) && i != 0) { result.unshift(','); }
+            }
+            return result.join('');
+        }
         return {
-            handleItemClick
+            handleItemClick,
+            toThousands
         }
     }
 })
@@ -59,26 +70,38 @@ export default defineComponent({
         .ratio-item {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            align-items: flex-start;
+            justify-content: flex-start;
             flex-basis: 100%;
-            padding: 10px 0;
-            border: solid 2px rgba(237,237,237);
+            padding: 24px;
+            border: 1px solid #E5E7EE;
+            border-radius: 8px;
             font-size: 15px;
-            line-height: 1.9;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
+            line-height: 1.4;
             .name {
-                font-weight: bold;
+                font-family: PingFangSC-Semibold;
+                font-size: 18px;
+                color: #216DFF;
+                font-weight: 600;
             }
             .desc {
-                line-height: 1.3;
+                padding-top: 4px;
+                font-size: 14px;
+                color: #6A6F79;
+                font-weight: 400;
             }
             .price {
-                color: #777;
+                padding-top: 19px;
+                font-family: Avenir-Heavy;
+                font-size: 20px;
+                color: #33425E;
+                font-weight: 800;
             }
         }
         .active {
-            border-color: rgb(83, 117, 221);
+            border: 3px solid #216DFF;
+            border-radius: 8px;
         }
     }
 }

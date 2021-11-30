@@ -42,10 +42,20 @@ export default defineComponent({
 .product-tab {
     display: flex;
     justify-content: space-around;
-    font-size: 15px;
+    align-items: center;
+    height: 54px;
+    font-size: 16px;
+    color: #6A6F79;
+    font-family: MicrosoftYaHei;
+    text-align: center;
+    font-weight: 400;
+    .ratio-item {
+        padding: 10px;
+    }
     .active {
-        font-size: 16px;
-        font-weight: bold;
+        font-size: 20px;
+        color: #33425E;
+        font-weight: 600;
     }
 }
 </style>
