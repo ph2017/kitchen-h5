@@ -82,7 +82,7 @@ export default defineComponent({
             .name {
                 font-family: PingFangSC-Semibold;
                 font-size: 18px;
-                color: #216DFF;
+                color: #33425E;
                 font-weight: 600;
             }
             .desc {
@@ -97,6 +97,11 @@ export default defineComponent({
                 font-size: 20px;
                 color: #33425E;
                 font-weight: 800;
+            }
+        }
+        .active {
+            .name {
+                color: #216DFF;
             }
         }
         .active {
