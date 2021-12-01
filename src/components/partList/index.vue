@@ -87,7 +87,7 @@ export default defineComponent({
             justify-content: space-between;
             align-items: center;
             padding: 10px;
-            border-bottom: 1px solid rgba(237,237,237);
+            border-bottom: 1px solid #3E3F41;
             line-height: 1.5;
             .left {
                 display: flex;

@@ -74,7 +74,7 @@ export default defineComponent({
             justify-content: flex-start;
             flex-basis: 100%;
             padding: 24px;
-            border: 1px solid #E5E7EE;
+            border: 1px solid #3E3F41;
             border-radius: 8px;
             font-size: 15px;
             margin-bottom: 10px;

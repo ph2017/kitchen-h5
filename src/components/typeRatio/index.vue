@@ -82,7 +82,7 @@ export default defineComponent({
             justify-content: center;
             padding: 24px 0;
             text-align: center;
-            border: 1px solid #E5E7EE;
+            border: 1px solid #3E3F41;
             border-radius: 8px;
             font-family: PingFangSC-Semibold;
             font-size: 18px;
