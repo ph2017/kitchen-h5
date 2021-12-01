@@ -525,7 +525,7 @@ export default defineComponent({
     
   }
   &-content {
-    background: #fff;
+    // background: #fff;
     // height: calc(~'100vh - 380px');
     // overflow: auto;
     padding: 20px;
@@ -542,14 +542,14 @@ export default defineComponent({
       font-family: MicrosoftYaHei;
       .code {
         font-size: 20px;
-        color: #33425E;
+        color: #FFF;
         text-align: center;
         font-weight: 400;
         padding-right: 22px;
       }
       .model-name {
         font-size: 14px;
-        color: #6A6F79;
+        color: #9E9FA1;
         font-weight: 400;
       }
     }
@@ -560,7 +560,9 @@ export default defineComponent({
   }
   .van-submit-bar__bar {
     height: 60px;
-    border-top: 1px solid rgba(237,237,237);
+    background: #0F0F12;
+    box-shadow: inset 0px 1px 0px 0px rgba(62,63,65,1);
+    // border-top: 1px solid rgba(237,237,237);
     .van-submit-bar__text {
       text-align: left;
       .van-submit-bar__price {
@@ -570,7 +572,9 @@ export default defineComponent({
   }
   .van-action-bar {
     height: 60px;
-    border-top: 1px solid rgba(237,237,237);
+    background: #0F0F12;
+    box-shadow: inset 0px 1px 0px 0px rgba(62,63,65,1);
+    // border-top: 1px solid rgba(237,237,237);
     .van-submit-bar__text {
       flex: 2;
       text-align: left;
@@ -580,9 +584,9 @@ export default defineComponent({
       color: #000;
     }
     .van-action-bar-button--warning {
-      background: #fff;
-      color: #6A6F79;
-      border: 1px solid #216DFF;
+      background: transparent;
+      color:  #9E9FA1;
+      border: 1px solid #AF6437;
     }
   }
   .bottom-total-price {
@@ -592,7 +596,7 @@ export default defineComponent({
     z-index: 100;
     font-family: Avenir-Heavy;
     font-size: 20px;
-    color: #33425E;
+    color: #AF6437;
     line-height: 28px;
     font-weight: 800;
     text-align: center;

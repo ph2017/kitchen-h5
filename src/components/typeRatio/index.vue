@@ -66,7 +66,7 @@ export default defineComponent({
     .label {
         font-family: PingFangSC-Semibold;
         font-size: 20px;
-        color: #33425E;
+        color: #FFF;
         font-weight: 600;
         line-height: 1.4;
     }
@@ -86,7 +86,7 @@ export default defineComponent({
             border-radius: 8px;
             font-family: PingFangSC-Semibold;
             font-size: 18px;
-            color: #33425E;
+            color: #FFF;
             font-weight: 600;
             margin: 10px 8px 0 0;
             box-sizing: border-box;
@@ -100,7 +100,7 @@ export default defineComponent({
                     margin-top: 2px;
                     font-family: PingFangSC-Regular;
                     font-size: 14px;
-                    color: #6A6F79;
+                    color: #9E9FA1;
                     font-weight: 400;
                 }
             }
@@ -109,9 +109,9 @@ export default defineComponent({
     }
     .column-two.ratio-item:nth-of-type(2n+0){margin-right: 0;}
     .active {
-        border: 3px solid #216DFF;
+        border: 3px solid #AF6437;
         .type {
-            color: #216DFF;
+            color: #AF6437;
         }
     }
 }

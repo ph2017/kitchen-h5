@@ -70,7 +70,7 @@ export default defineComponent({
         margin-top: 10px;
         font-family: PingFangSC-Semibold;
         font-size: 20px;
-        color: #33425E;
+        color: #FFF;
         font-weight: 600;
     }
 

@@ -82,30 +82,30 @@ export default defineComponent({
             .name {
                 font-family: PingFangSC-Semibold;
                 font-size: 18px;
-                color: #33425E;
+                color: #FFF;
                 font-weight: 600;
             }
             .desc {
                 padding-top: 4px;
                 font-size: 14px;
-                color: #6A6F79;
+                color: #9E9FA1;
                 font-weight: 400;
             }
             .price {
                 padding-top: 19px;
                 font-family: Avenir-Heavy;
                 font-size: 20px;
-                color: #33425E;
+                color: #FFF;
                 font-weight: 800;
             }
         }
         .active {
             .name {
-                color: #216DFF;
+                color: #AF6437;
             }
         }
         .active {
-            border: 3px solid #216DFF;
+            border: 3px solid #AF6437;
             border-radius: 8px;
         }
     }

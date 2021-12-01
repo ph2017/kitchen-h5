@@ -45,7 +45,7 @@ export default defineComponent({
     align-items: center;
     height: 54px;
     font-size: 16px;
-    color: #6A6F79;
+    color: #9E9FA1;
     font-family: MicrosoftYaHei;
     text-align: center;
     font-weight: 400;
@@ -54,7 +54,7 @@ export default defineComponent({
     }
     .active {
         font-size: 20px;
-        color: #33425E;
+        color: #FFF;
         font-weight: 600;
     }
 }

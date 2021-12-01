@@ -74,7 +74,7 @@ export default defineComponent({
     .title {
         font-family: PingFangSC-Semibold;
         font-size: 20px;
-        color: #33425E;
+        color: #FFF;
         font-weight: 600;
     }
     .list-ul {
@@ -94,14 +94,14 @@ export default defineComponent({
                 flex-direction: column;
                 justify-content: flex-start;
                 .name {
-                    color: #6A6F79;
+                    color: #9E9FA1;
                     font-weight: 400;
                 }
                 .value {
                     margin-top: 8px;
                     font-family: PingFangSC-Regular;
                     font-size: 14px;
-                    color: #33425E;
+                    color: #FFF;
                     font-weight: 400;
                 }
             }
@@ -109,7 +109,7 @@ export default defineComponent({
                 .price {
                     font-family: PingFangSC-Regular;
                     font-size: 14px;
-                    color: #33425E;
+                    color: #FFF;
                     text-align: right;
                     font-weight: 400;
                 }
